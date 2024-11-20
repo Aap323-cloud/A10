@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Setter and Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .cookie-display {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Cookie Setter and Reader</h1>
+</header>
+<main>
+    <p>Welcome! This page sets a cookie and displays it upon reloading the page.</p>
+    <div class="cookie-display" id="cookieDisplay">
+
+    </div>
+</main>
+<footer>
+    <p>&copy; Your Name, Due Date: November 25, 2024</p>
+</footer>
+
+<script>
+
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookies = decodedCookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(nameEQ) === 0) {
+                return cookie.substring(nameEQ.length);
+            }
+        }
+        return "";
+    }
+
+    // Set a cookie if it doesn't exist and display it
+    const cookieName = "userVisit";
+    let cookieValue = getCookie(cookieName);
+
+    if (!cookieValue) {
+        cookieValue = "Welcome! Your visit is recorded at " + new Date().toLocaleString();
+        setCookie(cookieName, cookieValue, 7); // Cookie valid for 7 days
+    }
+
+    document.getElementById("cookieDisplay").textContent = "Cookie Value: " + cookieValue;
+</script>
+</body>
+</html>
+
+<body onload="checkCookie()">
+<h1> Cookie Test </h1>
+<p>&copy; Ali-Tyana Peynado 11/19/2024 </p>
+</body>
